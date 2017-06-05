@@ -19,6 +19,7 @@
 		F82CDF621EE504C8004DC224 /* FoodMatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CDF611EE504C8004DC224 /* FoodMatesTests.swift */; };
 		F82CDF6D1EE504C8004DC224 /* FoodMatesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CDF6C1EE504C8004DC224 /* FoodMatesUITests.swift */; };
 		F82CDF7B1EE51512004DC224 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F82CDF7A1EE51512004DC224 /* GoogleService-Info.plist */; };
+		F82CDF7D1EE526A9004DC224 /* AddFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CDF7C1EE526A9004DC224 /* AddFoodViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		F82CDF6C1EE504C8004DC224 /* FoodMatesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodMatesUITests.swift; sourceTree = "<group>"; };
 		F82CDF6E1EE504C9004DC224 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F82CDF7A1EE51512004DC224 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F82CDF7C1EE526A9004DC224 /* AddFoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFoodViewController.swift; sourceTree = "<group>"; };
 		F910B2F2326105604CBFA947 /* Pods-FoodMatesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodMatesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodMatesTests/Pods-FoodMatesTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,6 +151,7 @@
 				F82CDF581EE504C8004DC224 /* Info.plist */,
 				F82CDF7A1EE51512004DC224 /* GoogleService-Info.plist */,
 				F82CDF501EE504C8004DC224 /* FoodMates.xcdatamodeld */,
+				F82CDF7C1EE526A9004DC224 /* AddFoodViewController.swift */,
 			);
 			path = FoodMates;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 			files = (
 				F82CDF521EE504C8004DC224 /* FoodMates.xcdatamodeld in Sources */,
 				F82CDF4C1EE504C8004DC224 /* ViewController.swift in Sources */,
+				F82CDF7D1EE526A9004DC224 /* AddFoodViewController.swift in Sources */,
 				F82CDF4A1EE504C8004DC224 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

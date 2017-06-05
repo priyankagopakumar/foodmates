@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8Np-Pt-XlQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="d3R-yN-gq0">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,55 +9,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--FoodMates-->
-        <scene sceneID="yIy-A9-h3B">
-            <objects>
-                <tableViewController id="DWi-vL-yr4" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="GxX-uA-SFf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="xxA-Ub-Afm">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xxA-Ub-Afm" id="4qT-Py-Vec">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="DWi-vL-yr4" id="m0E-1Z-siQ"/>
-                            <outlet property="delegate" destination="DWi-vL-yr4" id="Gqp-GS-RZq"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="FoodMates" id="iVC-QX-hFc">
-                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="add" id="Qyw-Y7-QgH"/>
-                    </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OOs-ai-HY6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1370" y="134"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="xYy-e0-5Q8">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gaP-lO-b7n" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="c51-Tc-EEL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="DWi-vL-yr4" kind="relationship" relationship="rootViewController" id="8Dc-ZL-8uI"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lyy-NM-rsA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="444" y="134"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="9S3-F5-smh">
             <objects>
@@ -85,9 +36,6 @@
                                 <state key="normal" title="Register">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="d3R-yN-gq0" kind="show" id="CBw-ue-DuI"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dqp-la-Nkd">
                                 <rect key="frame" x="108" y="345" width="159" height="30"/>
@@ -145,12 +93,69 @@
                             <outlet property="delegate" destination="A1G-vr-I9y" id="Mum-bX-asx"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="List" id="t25-Xb-eF6"/>
-                    <navigationItem key="navigationItem" title="List" id="CV0-sN-Ztn"/>
+                    <navigationItem key="navigationItem" title="List" id="CV0-sN-Ztn">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="Cwx-rm-74r"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="yX0-dA-0eR">
+                            <connections>
+                                <segue destination="GV2-8Z-TkE" kind="show" id="sYf-zd-z9B"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iGg-a9-r2i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3566" y="-820"/>
+            <point key="canvasLocation" x="4492" y="-948.57571214392806"/>
+        </scene>
+        <!--Add Item-->
+        <scene sceneID="Yer-bq-uwd">
+            <objects>
+                <viewController id="GV2-8Z-TkE" customClass="AddFoodViewController" customModule="FoodMates" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AVg-eE-HCg"/>
+                        <viewControllerLayoutGuide type="bottom" id="ta2-I3-Qzt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PWA-OV-564">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n4d-H6-xDf">
+                                <rect key="frame" x="87" y="72" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="InZ-pr-jEd">
+                                <rect key="frame" x="16" y="280" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mTH-bD-V1g">
+                                <rect key="frame" x="16" y="318" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Phh-92-NCn">
+                                <rect key="frame" x="172" y="356" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add"/>
+                                <connections>
+                                    <action selector="addFoodToFirebase:" destination="GV2-8Z-TkE" eventType="touchUpInside" id="aXI-MK-6hu"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Item" id="jZA-gZ-t4b"/>
+                    <connections>
+                        <outlet property="textFoodDescription" destination="mTH-bD-V1g" id="Nhb-9Z-qzn"/>
+                        <outlet property="textFoodName" destination="InZ-pr-jEd" id="rru-VM-DHf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vOH-Nf-8uw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5352.8000000000002" y="-949.47526236881572"/>
         </scene>
         <!--Pickups-->
         <scene sceneID="zvM-k3-3rU">
@@ -175,12 +180,11 @@
                             <outlet property="delegate" destination="I9w-Nw-O4G" id="3Hh-xl-cm5"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Pickups" id="Chx-Es-bBx"/>
                     <navigationItem key="navigationItem" title="Pickups" id="11e-uF-Qqs"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GQp-dA-nsd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3566" y="-99"/>
+            <point key="canvasLocation" x="4492" y="-204.64767616191907"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="RfZ-qz-1oJ">
@@ -192,8 +196,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="A1G-vr-I9y" kind="relationship" relationship="viewControllers" id="f5Z-bK-ezE"/>
-                        <segue destination="I9w-Nw-O4G" kind="relationship" relationship="viewControllers" id="div-Dd-wJT"/>
+                        <segue destination="J1e-1E-hQd" kind="relationship" relationship="viewControllers" id="f5Z-bK-ezE"/>
+                        <segue destination="Bxh-Ii-2i3" kind="relationship" relationship="viewControllers" id="div-Dd-wJT"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oz0-ng-W7v" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -205,7 +209,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8Np-Pt-XlQ" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iw2-Tm-iT5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iw2-Tm-iT5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -218,5 +222,47 @@
             </objects>
             <point key="canvasLocation" x="918" y="-620"/>
         </scene>
+        <!--Food-->
+        <scene sceneID="9qu-Tf-BGh">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="J1e-1E-hQd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Food" image="foods" selectedImage="foods" id="t25-Xb-eF6"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="CVG-ea-rgf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="A1G-vr-I9y" kind="relationship" relationship="rootViewController" id="aZk-Kx-ciM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="clc-go-Vpa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3552.8000000000002" y="-948.57571214392806"/>
+        </scene>
+        <!--Pickups-->
+        <scene sceneID="KCd-AY-CAn">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Bxh-Ii-2i3" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Pickups" image="pickup" id="Chx-Es-bBx"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Qsa-fS-mSC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="I9w-Nw-O4G" kind="relationship" relationship="rootViewController" id="aq1-wO-EgS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aiS-41-XM2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3552.8000000000002" y="-204.64767616191907"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="foods" width="32" height="32"/>
+        <image name="pickup" width="32" height="32"/>
+    </resources>
 </document>
