@@ -20,6 +20,10 @@
 		F82CDF6D1EE504C8004DC224 /* FoodMatesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CDF6C1EE504C8004DC224 /* FoodMatesUITests.swift */; };
 		F82CDF7B1EE51512004DC224 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F82CDF7A1EE51512004DC224 /* GoogleService-Info.plist */; };
 		F82CDF7D1EE526A9004DC224 /* AddFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CDF7C1EE526A9004DC224 /* AddFoodViewController.swift */; };
+		F82CDF7F1EE56295004DC224 /* FoodsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CDF7E1EE56295004DC224 /* FoodsTableViewController.swift */; };
+		F82CDF821EE562D9004DC224 /* FoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CDF811EE562D9004DC224 /* FoodTableViewCell.swift */; };
+		F82CDF861EE56879004DC224 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CDF851EE56879004DC224 /* Food.swift */; };
+		F82CDF881EE58E5A004DC224 /* FoodDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CDF871EE58E5A004DC224 /* FoodDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +68,10 @@
 		F82CDF6E1EE504C9004DC224 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F82CDF7A1EE51512004DC224 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F82CDF7C1EE526A9004DC224 /* AddFoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFoodViewController.swift; sourceTree = "<group>"; };
+		F82CDF7E1EE56295004DC224 /* FoodsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodsTableViewController.swift; sourceTree = "<group>"; };
+		F82CDF811EE562D9004DC224 /* FoodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodTableViewCell.swift; sourceTree = "<group>"; };
+		F82CDF851EE56879004DC224 /* Food.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		F82CDF871EE58E5A004DC224 /* FoodDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodDetailsViewController.swift; sourceTree = "<group>"; };
 		F910B2F2326105604CBFA947 /* Pods-FoodMatesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodMatesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodMatesTests/Pods-FoodMatesTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +151,7 @@
 		F82CDF481EE504C8004DC224 /* FoodMates */ = {
 			isa = PBXGroup;
 			children = (
+				F82CDF801EE562AE004DC224 /* ListFood */,
 				F82CDF491EE504C8004DC224 /* AppDelegate.swift */,
 				F82CDF4B1EE504C8004DC224 /* ViewController.swift */,
 				F82CDF4D1EE504C8004DC224 /* Main.storyboard */,
@@ -151,7 +160,6 @@
 				F82CDF581EE504C8004DC224 /* Info.plist */,
 				F82CDF7A1EE51512004DC224 /* GoogleService-Info.plist */,
 				F82CDF501EE504C8004DC224 /* FoodMates.xcdatamodeld */,
-				F82CDF7C1EE526A9004DC224 /* AddFoodViewController.swift */,
 			);
 			path = FoodMates;
 			sourceTree = "<group>";
@@ -172,6 +180,18 @@
 				F82CDF6E1EE504C9004DC224 /* Info.plist */,
 			);
 			path = FoodMatesUITests;
+			sourceTree = "<group>";
+		};
+		F82CDF801EE562AE004DC224 /* ListFood */ = {
+			isa = PBXGroup;
+			children = (
+				F82CDF7C1EE526A9004DC224 /* AddFoodViewController.swift */,
+				F82CDF7E1EE56295004DC224 /* FoodsTableViewController.swift */,
+				F82CDF811EE562D9004DC224 /* FoodTableViewCell.swift */,
+				F82CDF851EE56879004DC224 /* Food.swift */,
+				F82CDF871EE58E5A004DC224 /* FoodDetailsViewController.swift */,
+			);
+			name = ListFood;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -456,10 +476,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F82CDF861EE56879004DC224 /* Food.swift in Sources */,
+				F82CDF7F1EE56295004DC224 /* FoodsTableViewController.swift in Sources */,
 				F82CDF521EE504C8004DC224 /* FoodMates.xcdatamodeld in Sources */,
 				F82CDF4C1EE504C8004DC224 /* ViewController.swift in Sources */,
 				F82CDF7D1EE526A9004DC224 /* AddFoodViewController.swift in Sources */,
 				F82CDF4A1EE504C8004DC224 /* AppDelegate.swift in Sources */,
+				F82CDF821EE562D9004DC224 /* FoodTableViewCell.swift in Sources */,
+				F82CDF881EE58E5A004DC224 /* FoodDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
