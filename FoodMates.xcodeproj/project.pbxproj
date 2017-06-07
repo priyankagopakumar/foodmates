@@ -24,6 +24,9 @@
 		F82CDF821EE562D9004DC224 /* FoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CDF811EE562D9004DC224 /* FoodTableViewCell.swift */; };
 		F82CDF861EE56879004DC224 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CDF851EE56879004DC224 /* Food.swift */; };
 		F82CDF881EE58E5A004DC224 /* FoodDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CDF871EE58E5A004DC224 /* FoodDetailsViewController.swift */; };
+		F82CDF8F1EE6C64A004DC224 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CDF8E1EE6C64A004DC224 /* RegisterViewController.swift */; };
+		F88AE6BD1EE8018B00DED8B0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88AE6BC1EE8018B00DED8B0 /* ProfileViewController.swift */; };
+		F88AE6BF1EE8254A00DED8B0 /* FoodListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88AE6BE1EE8254A00DED8B0 /* FoodListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +75,9 @@
 		F82CDF811EE562D9004DC224 /* FoodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodTableViewCell.swift; sourceTree = "<group>"; };
 		F82CDF851EE56879004DC224 /* Food.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		F82CDF871EE58E5A004DC224 /* FoodDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodDetailsViewController.swift; sourceTree = "<group>"; };
+		F82CDF8E1EE6C64A004DC224 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		F88AE6BC1EE8018B00DED8B0 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F88AE6BE1EE8254A00DED8B0 /* FoodListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodListViewController.swift; sourceTree = "<group>"; };
 		F910B2F2326105604CBFA947 /* Pods-FoodMatesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodMatesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodMatesTests/Pods-FoodMatesTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,6 +157,8 @@
 		F82CDF481EE504C8004DC224 /* FoodMates */ = {
 			isa = PBXGroup;
 			children = (
+				F88AE6BB1EE8016F00DED8B0 /* Profile */,
+				F82CDF891EE6C540004DC224 /* Login */,
 				F82CDF801EE562AE004DC224 /* ListFood */,
 				F82CDF491EE504C8004DC224 /* AppDelegate.swift */,
 				F82CDF4B1EE504C8004DC224 /* ViewController.swift */,
@@ -190,8 +198,25 @@
 				F82CDF811EE562D9004DC224 /* FoodTableViewCell.swift */,
 				F82CDF851EE56879004DC224 /* Food.swift */,
 				F82CDF871EE58E5A004DC224 /* FoodDetailsViewController.swift */,
+				F88AE6BE1EE8254A00DED8B0 /* FoodListViewController.swift */,
 			);
 			name = ListFood;
+			sourceTree = "<group>";
+		};
+		F82CDF891EE6C540004DC224 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				F82CDF8E1EE6C64A004DC224 /* RegisterViewController.swift */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		F88AE6BB1EE8016F00DED8B0 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				F88AE6BC1EE8018B00DED8B0 /* ProfileViewController.swift */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -476,7 +501,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F82CDF8F1EE6C64A004DC224 /* RegisterViewController.swift in Sources */,
 				F82CDF861EE56879004DC224 /* Food.swift in Sources */,
+				F88AE6BD1EE8018B00DED8B0 /* ProfileViewController.swift in Sources */,
+				F88AE6BF1EE8254A00DED8B0 /* FoodListViewController.swift in Sources */,
 				F82CDF7F1EE56295004DC224 /* FoodsTableViewController.swift in Sources */,
 				F82CDF521EE504C8004DC224 /* FoodMates.xcdatamodeld in Sources */,
 				F82CDF4C1EE504C8004DC224 /* ViewController.swift in Sources */,

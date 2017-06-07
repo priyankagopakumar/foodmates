@@ -1,21 +1,25 @@
 //
-//  FoodsTableViewController.swift
+//  FoodListViewController.swift
 //  FoodMates
 //
-//  Created by Priyanka Gopakumar on 5/6/17.
+//  Created by Priyanka Gopakumar on 7/6/17.
 //  Copyright © 2017 Priyanka Gopakumar. All rights reserved.
 //
 
 import UIKit
 import Firebase
 
-class FoodsTableViewController: UITableViewController {
+class FoodListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var menuView: UIView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var noItemsLabel: UILabel!
+    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
+    
     var foodsList: NSMutableArray?
     var ref: FIRDatabaseReference?
     var selectedFood: Food?
-
-    @IBOutlet weak var noItemsLabel: UILabel!
+    var menuShowing = false
     
     required init?(coder aDecoder: NSCoder) {
         foodsList = NSMutableArray()
@@ -25,6 +29,12 @@ class FoodsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.menuView.layer.shadowOpacity = 1
+        self.menuView.layer.shadowRadius = 6
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
         ref = FIRDatabase.database().reference()
         if let currentUser = FIRAuth.auth()?.currentUser {
             print("Logged in user is \(currentUser.displayName)")
@@ -34,38 +44,19 @@ class FoodsTableViewController: UITableViewController {
         
         
         retrieveDataFromFirebase()
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return (foodsList?.count)!
-    }
-    
-    
     func retrieveDataFromFirebase()
     {
         // Retrieve the list of foods from Firebase
         ref?.child("Foods").observeSingleEvent(of: .value, with: {(snapshot) in
             
             self.foodsList?.removeAllObjects()
-            var userID: String
-            userID = "testuser2"
             for current in snapshot.children.allObjects as! [FIRDataSnapshot]
             {
-                userID = current.key
-                if (userID != "testuser1")
+                var userID = current.key
+                if (userID != FIRAuth.auth()?.currentUser?.email)
                 {
                     for currentFood in current.children.allObjects as! [FIRDataSnapshot]
                     {
@@ -89,13 +80,25 @@ class FoodsTableViewController: UITableViewController {
                 self.noItemsLabel.text = ""
             }
         })
-
+        
     }
     
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return (foodsList?.count)!
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FoodCell", for: indexPath) as! FoodTableViewCell
-
+        
         let food = foodsList?.object(at: indexPath.row) as! Food
         // Configure the cell...
         cell.labelFoodName.text = food.foodName
@@ -117,8 +120,8 @@ class FoodsTableViewController: UITableViewController {
         return cell
     }
     
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedFood = foodsList?.object(at: indexPath.row) as! Food
         performSegue(withIdentifier: "showFoodDetailsSegue", sender: self)
     }
@@ -131,41 +134,34 @@ class FoodsTableViewController: UITableViewController {
         }
     }
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    @IBAction func showMenu(_ sender: Any) {
+        if (menuShowing)
+        {
+            leadingConstraint.constant = -200
+        }
+        else
+        {
+            leadingConstraint.constant = 0
+        }
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+        })
+        
+        menuShowing = !menuShowing
+        
     }
-    */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    @IBAction func logoutFromFoodmates(_ sender: Any) {
+        
+        let firebaseAuth = FIRAuth.auth()
+        do {
+            try firebaseAuth?.signOut()
+            self.dismiss(animated: true, completion: nil)
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     /*
     // MARK: - Navigation
 

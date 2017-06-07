@@ -10,6 +10,9 @@ target 'FoodMates' do
   pod 'Firebase/Storage'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
   pod 'GoogleSignIn'	
   
 
