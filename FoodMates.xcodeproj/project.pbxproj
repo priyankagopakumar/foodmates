@@ -76,6 +76,7 @@
 		F82CDF851EE56879004DC224 /* Food.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		F82CDF871EE58E5A004DC224 /* FoodDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodDetailsViewController.swift; sourceTree = "<group>"; };
 		F82CDF8E1EE6C64A004DC224 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		F87E13E21EE9206500D1ED62 /* FoodMates.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FoodMates.entitlements; sourceTree = "<group>"; };
 		F88AE6BC1EE8018B00DED8B0 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F88AE6BE1EE8254A00DED8B0 /* FoodListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodListViewController.swift; sourceTree = "<group>"; };
 		F910B2F2326105604CBFA947 /* Pods-FoodMatesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodMatesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodMatesTests/Pods-FoodMatesTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -157,6 +158,7 @@
 		F82CDF481EE504C8004DC224 /* FoodMates */ = {
 			isa = PBXGroup;
 			children = (
+				F87E13E21EE9206500D1ED62 /* FoodMates.entitlements */,
 				F88AE6BB1EE8016F00DED8B0 /* Profile */,
 				F82CDF891EE6C540004DC224 /* Login */,
 				F82CDF801EE562AE004DC224 /* ListFood */,
@@ -296,7 +298,13 @@
 				TargetAttributes = {
 					F82CDF451EE504C8004DC224 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = QB6M4M2GZL;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					F82CDF5C1EE504C8004DC224 = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -666,6 +674,8 @@
 			baseConfigurationReference = A0F432923804F6DEFE775831 /* Pods-FoodMates.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FoodMates/FoodMates.entitlements;
+				DEVELOPMENT_TEAM = QB6M4M2GZL;
 				INFOPLIST_FILE = FoodMates/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = pgop6.FoodMates;
@@ -679,6 +689,8 @@
 			baseConfigurationReference = 7AEAB9718156B18686DDF5BC /* Pods-FoodMates.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FoodMates/FoodMates.entitlements;
+				DEVELOPMENT_TEAM = QB6M4M2GZL;
 				INFOPLIST_FILE = FoodMates/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = pgop6.FoodMates;

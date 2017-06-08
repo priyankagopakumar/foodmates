@@ -40,7 +40,7 @@ class ProfileViewController: UIViewController {
     func retrieveUserInformationFromFirebase()
     {
         if let currentUser = FIRAuth.auth()?.currentUser {
-            ref?.child("Ratings").child((currentUser.displayName)!).observeSingleEvent(of: .value, with: {(snapshot) in
+            ref?.child("Ratings").child(currentUser.uid).observeSingleEvent(of: .value, with: {(snapshot) in
                 
                 if let reviews = snapshot.childSnapshot(forPath: "reviews").value as? Int {
                     self.reviews = reviews
