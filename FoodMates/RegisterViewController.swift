@@ -76,6 +76,17 @@ class RegisterViewController: UIViewController, GIDSignInUIDelegate, UITextField
         //setupAppLogoImage()
         
         GIDSignIn.sharedInstance().uiDelegate = self
+        
+        if FIRAuth.auth()?.currentUser?.uid == nil
+        {
+            do{
+                try FIRAuth.auth()?.signOut()
+            }
+            catch let logoutError {
+                print (logoutError)
+            }
+        }
+        
         FIRAuth.auth()?.addStateDidChangeListener { auth, user in
             if let user = user {
                 // User is signed in
@@ -84,6 +95,7 @@ class RegisterViewController: UIViewController, GIDSignInUIDelegate, UITextField
             } else {
                 // No user is signed in.
                 print("user is not logged in")
+                
             }
         }
     }
@@ -240,7 +252,8 @@ class RegisterViewController: UIViewController, GIDSignInUIDelegate, UITextField
         email = textEmail.text
         password = textPassword.text
         name = textName.text
-        if (name?.isEmpty)!
+        var chosenOption = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
+        if ((name?.isEmpty)! && chosenOption == "Register")
         {
             displayAlert(title: "Alert", message: "Please enter a name")
         }
@@ -256,25 +269,42 @@ class RegisterViewController: UIViewController, GIDSignInUIDelegate, UITextField
         }
         else
         {
-            FIRAuth.auth()?.createUser(withEmail: email!, password: password!, completion: {(user, error) in
-                
-                if error != nil
-                {
-                    print (error)
-                    return
-                }
-                print ("Successfully authenticated")
-                let values = ["name": name, "email": email, "imageURL": "Blank", "contact": "Nil"]
-                self.ref?.child("Profile").child((user?.uid)!).updateChildValues(values, withCompletionBlock: {(err, ref) in
-                    
-                    if (err != nil)
+            if (chosenOption == "Login")
+            {
+                FIRAuth.auth()?.signIn(withEmail: email!, password: password!) { (user, error) in
+                    if error != nil
                     {
-                        print(err)
+                        print (error)
+                        self.displayAlert(title: "Error", message: "Could not login. Please enter valid details")
                         return
                     }
-                    print ("Saved user successfully into Firebase")
+                    print ("Successfully signed in")
+                }
+
+            }
+            else
+            {
+                FIRAuth.auth()?.createUser(withEmail: email!, password: password!, completion: {(user, error) in
+                    
+                    if error != nil
+                    {
+                        print (error)
+                        self.displayAlert(title: "Error", message: "Could not register. Please enter valid details")
+                        return
+                    }
+                    print ("Successfully authenticated")
+                    let values = ["name": name, "email": email, "imageURL": "Blank", "contact": "Nil"]
+                    self.ref?.child("Profile").child((user?.uid)!).updateChildValues(values, withCompletionBlock: {(err, ref) in
+                        
+                        if (err != nil)
+                        {
+                            print(err)
+                            return
+                        }
+                        print ("Saved user successfully into Firebase")
+                    })
                 })
-            })
+            }
         }
     }
 
@@ -305,7 +335,29 @@ class RegisterViewController: UIViewController, GIDSignInUIDelegate, UITextField
                     return
                 }
                 
-                self.performSegue(withIdentifier: "MainPageSegue", sender: self)
+                var hasEntry: Bool = false
+                var ref2: FIRDatabaseReference = FIRDatabase.database().reference()
+                ref2.child("Profile").child((user?.uid)!).observe(.value, with: {(snapshot) in
+                    // let's try this
+                    if (snapshot.hasChildren())
+                    {
+                        hasEntry = true
+                    }
+                    if (!hasEntry)
+                    {
+                        let values = ["name": user?.displayName, "email": user?.email, "imageURL": "Blank", "contact": "Nil"]
+                        self.ref?.child("Profile").child((user?.uid)!).updateChildValues(values, withCompletionBlock: {(err, ref) in
+                            
+                            if (err != nil)
+                            {
+                                print(err)
+                                return
+                            }
+                            print ("Saved user successfully into Firebase")
+                        })
+                        self.performSegue(withIdentifier: "MainPageSegue", sender: self)
+                    }
+                })
             })
         }
     }
@@ -320,6 +372,7 @@ class RegisterViewController: UIViewController, GIDSignInUIDelegate, UITextField
             print(error.localizedDescription)
             return
         }
+        
     }
     
     

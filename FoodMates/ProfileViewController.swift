@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var emailLabel: UILabel!
@@ -17,8 +17,12 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     
     var ref: FIRDatabaseReference?
+    var storageRef: FIRStorageReference?
+    
     var reviews: Int?
     var sumratings: Int?
+    var name: String?
+    var email: String?
     
     required init?(coder aDecoder: NSCoder) {
         reviews = nil
@@ -29,6 +33,8 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
+        storageRef = FIRStorage.storage().reference()
+        assignLabels()
         retrieveUserInformationFromFirebase()
     }
 
@@ -39,19 +45,26 @@ class ProfileViewController: UIViewController {
     
     func retrieveUserInformationFromFirebase()
     {
+        self.ratingLabel.text = "No ratings"
         if let currentUser = FIRAuth.auth()?.currentUser {
             ref?.child("Ratings").child(currentUser.uid).observeSingleEvent(of: .value, with: {(snapshot) in
                 
                 if let reviews = snapshot.childSnapshot(forPath: "reviews").value as? Int {
-                    self.reviews = reviews
-                }
+                   // self.reviews = reviews
+                //}
                 
-                if let sumratings = snapshot.childSnapshot(forPath: "sumratings").value as? Int {
-                    self.sumratings = sumratings
+                    if let sumratings = snapshot.childSnapshot(forPath: "sumratings").value as? Int {
+                        //self.sumratings = sumratings
+                        if ((sumratings != nil) && (reviews != nil))
+                        {
+                            var rating = sumratings/reviews
+                            self.ratingLabel.text = "\(rating)"
+                        }
+                    }
                 }
-                DispatchQueue.main.async(){
-                    self.assignLabels()
-                }
+//                DispatchQueue.main.async(){
+//                    self.assignLabels()
+//                }
             })
         }
 
@@ -60,27 +73,85 @@ class ProfileViewController: UIViewController {
     func assignLabels()
     {
         if let currentUser = FIRAuth.auth()?.currentUser {
-            print("Logged in user is \(currentUser.displayName)")
-            print("Logged in user is \(currentUser.email)")
-            nameLabel.text = currentUser.displayName
-            emailLabel.text = currentUser.email
+            ref?.child("Profile").child(currentUser.uid).observeSingleEvent(of: .value, with: {(snapshot) in
             
-            if ((sumratings != nil) && (reviews != nil))
-            {
-                var rating = sumratings!/reviews!
-                ratingLabel.text = "\(rating)"
-            }
-            else
-            {
-                ratingLabel.text = "No ratings"
-            }
+                if let name = snapshot.childSnapshot(forPath: "name").value as? String {
+                    self.name = name
+                    self.nameLabel.text = name
+                }
+            
+                if let email = snapshot.childSnapshot(forPath: "email").value as? String {
+                    self.email = email
+                    self.emailLabel.text = email
+                }
+                
+                if let imageURL = snapshot.childSnapshot(forPath: "imageURL").value as? String {
+                    if imageURL == "Blank"
+                    {
+                        self.profileImageView.image = #imageLiteral(resourceName: "grayprofile")
+                    }
+                    else
+                    {
+                        self.profileImageView.loadImageUsingCacheWithUrlString(urlString: imageURL)
+                    }
+
+                }
+            })
         }
     }
     
     @IBAction func updateProfileImage(_ sender: Any) {
         print("update picture")
+        pickImageFromDevice()
     }
 
+    
+    func pickImageFromDevice()
+    {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        var selectedImageFromPicker: UIImage?
+        
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            print (editedImage)
+            selectedImageFromPicker = editedImage
+        }
+
+        else
+        if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            print (originalImage)
+            selectedImageFromPicker = originalImage
+        }
+        
+        if let selectedImage = selectedImageFromPicker {
+            profileImageView.image = selectedImage
+            
+            let uploadData = UIImagePNGRepresentation(selectedImage)
+            storageRef?.child("Profile").child("\((FIRAuth.auth()?.currentUser?.uid)!).png").put(uploadData!, metadata: nil, completion: {(metadata, error) in
+                if error != nil {
+                    print (error)
+                    return
+                }
+                
+                self.ref?.child("Profile").child((FIRAuth.auth()?.currentUser?.uid)!).child("imageURL").setValue(metadata?.downloadURL()?.absoluteString)
+            })
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print ("cancelled image picker")
+        dismiss(animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

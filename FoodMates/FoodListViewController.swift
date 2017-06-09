@@ -56,7 +56,7 @@ class FoodListViewController: UIViewController, UITableViewDataSource, UITableVi
             for current in snapshot.children.allObjects as! [FIRDataSnapshot]
             {
                 var userID = current.key
-                if (userID != FIRAuth.auth()?.currentUser?.email)
+                if (userID != FIRAuth.auth()?.currentUser?.uid)
                 {
                     for currentFood in current.children.allObjects as! [FIRDataSnapshot]
                     {
@@ -67,10 +67,12 @@ class FoodListViewController: UIViewController, UITableViewDataSource, UITableVi
                         let foodDate = value?["foodDate"] as? String ?? ""
                         let newItem = Food(userID: userID, foodName: foodName, foodDescription: foodDescription, foodDate: foodDate, imageURL: imageURL)
                         self.foodsList?.add(newItem)
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
                     }
                 }
             }
-            self.tableView.reloadData()
             if self.foodsList?.count == 0
             {
                 self.noItemsLabel.text = "No items to display"
@@ -103,19 +105,31 @@ class FoodListViewController: UIViewController, UITableViewDataSource, UITableVi
         // Configure the cell...
         cell.labelFoodName.text = food.foodName
         cell.labelFoodDate.text = food.foodDate
+        cell.foodImageView.layer.cornerRadius = 25
+        cell.foodImageView.layer.masksToBounds = true        
+        
         if (food.imageURL == "Blank")
         {
-            cell.foodImageView.image = #imageLiteral(resourceName: "sampleimage")
+            cell.foodImageView.image = #imageLiteral(resourceName: "smallLogoFoodmates")
         }
         else
         {
-            let url = URL(string: food.imageURL)
-            let data = try? Data(contentsOf: url!)
             
-            if let imageData = data {
-                let image = UIImage(data: data!)
-                cell.foodImageView.image = image
-            }
+            cell.foodImageView.loadImageUsingCacheWithUrlString(urlString: food.imageURL)
+//            let url = URL(string: food.imageURL)
+//            URLSession.shared.dataTask(with: url!, completionHandler: {(data, response, error) in
+//            
+//                // download had an error
+//                if error != nil {
+//                    print (error)
+//                    return
+//                }
+//
+//                DispatchQueue.main.async {
+//                    cell.foodImageView.image = UIImage(data: data!)
+//                }
+//                
+//            }).resume()
         }
         return cell
     }

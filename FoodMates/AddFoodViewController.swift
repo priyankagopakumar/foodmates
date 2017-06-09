@@ -17,9 +17,14 @@ class AddFoodViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     @IBOutlet weak var foodImageView: UIImageView!
     
     var ref: FIRDatabaseReference?
+    var storageRef: FIRStorageReference?
     var imageURL: String?
+    var chosenImage: UIImage?
+    var id: String?
     
     required init?(coder aDecoder: NSCoder) {
+        
+        chosenImage = nil
         imageURL = nil
         super.init(coder: aDecoder)
     }
@@ -27,8 +32,9 @@ class AddFoodViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         ref = FIRDatabase.database().reference()
+        storageRef = FIRStorage.storage().reference()
+        
         //Looks for single or multiple taps.
         
         self.textFoodName.delegate = self
@@ -78,7 +84,7 @@ class AddFoodViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         {
             displayAlert(title: "Alert", message: "Please add a description")
         }
-        else if (imageURL == nil)
+        else if (chosenImage == nil)
         {
             displayAlert(title: "Alert", message: "Please add a picture")
         }
@@ -86,12 +92,11 @@ class AddFoodViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         {
             foodDate = dateFormatter.string(from: date)
             
-            let values = ["foodname": foodName!, "foodDescription": foodDescription!, "imageURL": "blank", "foodDate": foodDate]
+            let values = ["foodName": foodName!, "foodDescription": foodDescription!, "imageURL": "Blank", "foodDate": foodDate]
             
-            var id: String?
-            id = "\(foodName!)_\(foodDate!)"
-            self.ref?.child("Foods").child("testuser1").child(id!).setValue(values)
-            self.navigationController?.popViewController(animated: true)
+            self.id = NSUUID().uuidString
+            self.ref?.child("Foods").child((FIRAuth.auth()?.currentUser?.uid)!).child(id!).setValue(values)
+            saveImageToFirebase()
         }
     }
 
@@ -104,7 +109,7 @@ class AddFoodViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func addphotoUsingCamera(){
+    func addPhotoUsingCamera(){
         let picker = UIImagePickerController()
         
         picker.delegate = self
@@ -115,21 +120,65 @@ class AddFoodViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         present(picker, animated: true, completion: nil)
     }
     
+    func addPhotoUsingLibrary()
+    {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        if let editedImage = info["UIImagePickerControllerEditedImage"] as! UIImage?
-        {
-            self.foodImageView.image = editedImage
+//        if let editedImage = info["UIImagePickerControllerEditedImage"] as! UIImage?
+//        {
+//            self.foodImageView.image = editedImage
+//        }
+//        else if let originalImage = info["UIImagePickerControllerOriginalImage"] as! UIImage?
+//        {
+//            self.foodImageView.image = originalImage
+//        }
+//        picker.dismiss(animated: true, completion: nil)
+        
+        var selectedImageFromPicker: UIImage?
+        
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            print (editedImage)
+            selectedImageFromPicker = editedImage
         }
-        else if let originalImage = info["UIImagePickerControllerOriginalImage"] as! UIImage?
-        {
-            self.foodImageView.image = originalImage
+            
+        else
+            if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+                print (originalImage)
+                selectedImageFromPicker = originalImage
         }
-        picker.dismiss(animated: true, completion: nil)
+        
+        if let selectedImage = selectedImageFromPicker {
+            foodImageView.image = selectedImage
+            self.chosenImage = selectedImage
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func saveImageToFirebase()
+    {
+        var uploadData = UIImagePNGRepresentation(chosenImage!)
+        storageRef?.child("Foods").child("\(self.id!).png").put(uploadData!, metadata: nil, completion: {(metadata, error) in
+            if error != nil {
+                print (error)
+                return
+            }
+            
+            self.imageURL = metadata?.downloadURL()?.absoluteString
+        self.ref?.child("Foods").child((FIRAuth.auth()?.currentUser?.uid)!).child(self.id!).child("imageURL").setValue(self.imageURL)
+            self.navigationController?.popViewController(animated: true)
+        })
     }
     
     @IBAction func addFoodImage(_ sender: Any) {
-        addphotoUsingCamera()
+        //addPhotoUsingCamera()
+        addPhotoUsingLibrary()
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

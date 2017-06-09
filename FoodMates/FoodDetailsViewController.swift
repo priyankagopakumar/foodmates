@@ -28,6 +28,12 @@ class FoodDetailsViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.title = currentFood?.foodName
+        
+        self.userImageView.contentMode = .scaleAspectFill
+        self.userImageView.layer.cornerRadius = 25
+        self.userImageView.layer.masksToBounds = true
+        
         ref = FIRDatabase.database().reference()
         retrieveUserInformationFromFirebase()
     }
@@ -65,13 +71,7 @@ class FoodDetailsViewController: UIViewController {
         }
         else
         {
-            let url = URL(string: (currentFood?.imageURL)!)
-            let data = try? Data(contentsOf: url!)
-            
-            if let imageData = data {
-                let image = UIImage(data: data!)
-                foodImageView.image = image
-            }
+            foodImageView.loadImageUsingCacheWithUrlString(urlString: (currentFood?.imageURL)!)
         }
         
         if (userImageURL == "Blank")
@@ -80,15 +80,8 @@ class FoodDetailsViewController: UIViewController {
         }
         else
         {
-            let url = URL(string: userImageURL!)
-            let data = try? Data(contentsOf: url!)
-            
-            if let imageData = data {
-                let image = UIImage(data: data!)
-                userImageView.image = image
-            }
+            userImageView.loadImageUsingCacheWithUrlString(urlString: userImageURL!)
         }
-        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

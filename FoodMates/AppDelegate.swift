@@ -16,11 +16,14 @@ import GoogleSignIn
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
-
+    var ref: FIRDatabaseReference?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FIRApp.configure()
+        
+        ref = FIRDatabase.database().reference()
+        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
@@ -78,6 +81,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 print ("Failed to create e Firebase user with Google account: ", err)
                 return
             }
+            
+            
+            var hasEntry: Bool? = false
+            var ref2: FIRDatabaseReference = FIRDatabase.database().reference()
+            ref2.child("Profile").child((user?.uid)!).observe(.value, with: {(snapshot) in
+                // let's try this
+                if (snapshot.hasChildren())
+                {
+                    hasEntry = true
+                }
+                if (!hasEntry!)
+                {
+                    let values = ["name": user?.displayName, "email": user?.email, "imageURL": "Blank", "contact": "Nil"]
+                    self.ref?.child("Profile").child((user?.uid)!).updateChildValues(values, withCompletionBlock: {(err, ref) in
+                        
+                        if (err != nil)
+                        {
+                            print(err)
+                            return
+                        }
+                        print ("Saved user successfully into Firebase")
+                    })
+                    
+                }
+            })
             
             guard let uid = user?.uid else {return}
             print ("Successfully logged in using Google: ", uid)
