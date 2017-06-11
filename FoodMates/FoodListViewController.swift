@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Alamofire
 
 class FoodListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -42,14 +43,30 @@ class FoodListViewController: UIViewController, UITableViewDataSource, UITableVi
             
         }
         
+        // Update the FCM token
+        let user = Auth.auth().currentUser
+        print("hi", Messaging.messaging().fcmToken)
+        if (Messaging.messaging().fcmToken != nil) {
+            self.ref?.child("Profile").child((user?.uid)!).child("fcmToken").setValue(Messaging.messaging().fcmToken)
+        }
+        
         retrieveDataFromFirebase()
         
     }
     
     @IBAction func testPush(_ sender: Any) {
+        print("push")
+        
+        // Just to test, send push to self
         var token = Messaging.messaging().fcmToken
-        var message: Messaging
-
+        let url = "https://fcm.googleapis.com/fcm/send"
+        let headers = ["Content-Type": "application/json",
+                       "Authorization": "key=AAAAlpmHQdI:APA91bHSYKnQto0IWtkz49Ln20_MrfpvD6_fL6zSzRQlr_tpbcxjbq4IX1JMdXs0A0W6MjrwB0lDgwMJMhom-F_nycgxGZorPD2mY24r8uaHwuTPDV6Ts7urZqVmheJ5P3Jd5KGDBIN4"]
+        let content = ["notification": ["title": "test push", "body": "hello to you"], "to": self.ref?.child("Profile").child((Auth.auth().currentUser?.uid)!).value(forKey: "fcmToken")]
+        
+        Alamofire.request(url, method: .post, parameters: content, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
+            print(response)
+        }
     }
 
     func retrieveDataFromFirebase()

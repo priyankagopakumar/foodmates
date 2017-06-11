@@ -14,7 +14,8 @@ target 'FoodMates' do
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FacebookShare'
-  pod 'GoogleSignIn'	
+  pod 'GoogleSignIn'
+  pod 'Alamofire', '~> 4.4'	
   
 
   target 'FoodMatesTests' do

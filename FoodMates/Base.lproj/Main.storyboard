@@ -731,7 +731,7 @@
                                     <state key="normal" title="Push"/>
                                 </button>
                                 <connections>
-                                    <action selector="testPush:" destination="dgW-JT-MEb" id="8n2-zR-XK6"/>
+                                    <action selector="testPush:" destination="dgW-JT-MEb" id="Yj1-55-2jz"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
