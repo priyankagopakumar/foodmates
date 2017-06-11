@@ -19,7 +19,7 @@ class FoodDetailsViewController: UIViewController {
     @IBOutlet weak var foodNameLabel: UILabel!
     
     var currentFood: Food?
-    var ref: FIRDatabaseReference?
+    var ref: DatabaseReference?
     var userName: String?
     var userContact: String?
     var userImageURL: String?
@@ -34,7 +34,7 @@ class FoodDetailsViewController: UIViewController {
         self.userImageView.layer.cornerRadius = 25
         self.userImageView.layer.masksToBounds = true
         
-        ref = FIRDatabase.database().reference()
+        ref = Database.database().reference()
         retrieveUserInformationFromFirebase()
     }
 

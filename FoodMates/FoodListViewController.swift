@@ -17,7 +17,7 @@ class FoodListViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
     
     var foodsList: NSMutableArray?
-    var ref: FIRDatabaseReference?
+    var ref: DatabaseReference?
     var selectedFood: Food?
     var menuShowing = false
     
@@ -35,16 +35,21 @@ class FoodListViewController: UIViewController, UITableViewDataSource, UITableVi
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        ref = FIRDatabase.database().reference()
-        if let currentUser = FIRAuth.auth()?.currentUser {
+        ref = Database.database().reference()
+        if let currentUser = Auth.auth().currentUser {
             print("Logged in user is \(currentUser.displayName)")
             print("Logged in user is \(currentUser.email)")
             
         }
         
-        
         retrieveDataFromFirebase()
         
+    }
+    
+    @IBAction func testPush(_ sender: Any) {
+        var token = Messaging.messaging().fcmToken
+        var message: Messaging
+
     }
 
     func retrieveDataFromFirebase()
@@ -53,12 +58,12 @@ class FoodListViewController: UIViewController, UITableViewDataSource, UITableVi
         ref?.child("Foods").observeSingleEvent(of: .value, with: {(snapshot) in
             
             self.foodsList?.removeAllObjects()
-            for current in snapshot.children.allObjects as! [FIRDataSnapshot]
+            for current in snapshot.children.allObjects as! [DataSnapshot]
             {
                 var userID = current.key
-                if (userID != FIRAuth.auth()?.currentUser?.uid)
+                if (userID != Auth.auth().currentUser?.uid)
                 {
-                    for currentFood in current.children.allObjects as! [FIRDataSnapshot]
+                    for currentFood in current.children.allObjects as! [DataSnapshot]
                     {
                         let value = currentFood.value as? NSDictionary
                         let foodName = value?["foodName"] as? String ?? ""
@@ -168,9 +173,9 @@ class FoodListViewController: UIViewController, UITableViewDataSource, UITableVi
 
     @IBAction func logoutFromFoodmates(_ sender: Any) {
         
-        let firebaseAuth = FIRAuth.auth()
+        let firebaseAuth = Auth.auth()
         do {
-            try firebaseAuth?.signOut()
+            try firebaseAuth.signOut()
             self.dismiss(animated: true, completion: nil)
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)

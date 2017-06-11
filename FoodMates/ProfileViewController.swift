@@ -16,8 +16,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     
-    var ref: FIRDatabaseReference?
-    var storageRef: FIRStorageReference?
+    var ref: DatabaseReference?
+    var storageRef: StorageReference?
     
     var reviews: Int?
     var sumratings: Int?
@@ -32,8 +32,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref = FIRDatabase.database().reference()
-        storageRef = FIRStorage.storage().reference()
+        ref = Database.database().reference()
+        storageRef = Storage.storage().reference()
         assignLabels()
         retrieveUserInformationFromFirebase()
     }
@@ -46,7 +46,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func retrieveUserInformationFromFirebase()
     {
         self.ratingLabel.text = "No ratings"
-        if let currentUser = FIRAuth.auth()?.currentUser {
+        if let currentUser = Auth.auth().currentUser {
             ref?.child("Ratings").child(currentUser.uid).observeSingleEvent(of: .value, with: {(snapshot) in
                 
                 if let reviews = snapshot.childSnapshot(forPath: "reviews").value as? Int {
@@ -72,7 +72,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func assignLabels()
     {
-        if let currentUser = FIRAuth.auth()?.currentUser {
+        if let currentUser = Auth.auth().currentUser {
             ref?.child("Profile").child(currentUser.uid).observeSingleEvent(of: .value, with: {(snapshot) in
             
                 if let name = snapshot.childSnapshot(forPath: "name").value as? String {
@@ -134,13 +134,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             profileImageView.image = selectedImage
             
             let uploadData = UIImagePNGRepresentation(selectedImage)
-            storageRef?.child("Profile").child("\((FIRAuth.auth()?.currentUser?.uid)!).png").put(uploadData!, metadata: nil, completion: {(metadata, error) in
+            storageRef?.child("Profile").child("\((Auth.auth().currentUser?.uid)!).png").putData(uploadData!, metadata: nil, completion: {(metadata, error) in
                 if error != nil {
                     print (error)
                     return
                 }
                 
-                self.ref?.child("Profile").child((FIRAuth.auth()?.currentUser?.uid)!).child("imageURL").setValue(metadata?.downloadURL()?.absoluteString)
+                self.ref?.child("Profile").child((Auth.auth().currentUser?.uid)!).child("imageURL").setValue(metadata?.downloadURL()?.absoluteString)
             })
         }
         

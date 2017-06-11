@@ -28,6 +28,7 @@
 		F83374231EEA81E3007118C6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83374221EEA81E3007118C6 /* Extensions.swift */; };
 		F88AE6BD1EE8018B00DED8B0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88AE6BC1EE8018B00DED8B0 /* ProfileViewController.swift */; };
 		F88AE6BF1EE8254A00DED8B0 /* FoodListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88AE6BE1EE8254A00DED8B0 /* FoodListViewController.swift */; };
+		FC1A48E61EEBA22400F3A18C /* PickupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1A48E51EEBA22400F3A18C /* PickupTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		F88AE6BC1EE8018B00DED8B0 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F88AE6BE1EE8254A00DED8B0 /* FoodListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodListViewController.swift; sourceTree = "<group>"; };
 		F910B2F2326105604CBFA947 /* Pods-FoodMatesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodMatesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodMatesTests/Pods-FoodMatesTests.release.xcconfig"; sourceTree = "<group>"; };
+		FC1A48E51EEBA22400F3A18C /* PickupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 		F82CDF481EE504C8004DC224 /* FoodMates */ = {
 			isa = PBXGroup;
 			children = (
+				FC1A48E41EEBA1ED00F3A18C /* Pickups */,
 				F83374211EEA81BA007118C6 /* Helpers */,
 				F87E13E21EE9206500D1ED62 /* FoodMates.entitlements */,
 				F88AE6BB1EE8016F00DED8B0 /* Profile */,
@@ -230,6 +233,14 @@
 				F88AE6BC1EE8018B00DED8B0 /* ProfileViewController.swift */,
 			);
 			name = Profile;
+			sourceTree = "<group>";
+		};
+		FC1A48E41EEBA1ED00F3A18C /* Pickups */ = {
+			isa = PBXGroup;
+			children = (
+				FC1A48E51EEBA22400F3A18C /* PickupTableViewController.swift */,
+			);
+			name = Pickups;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,10 +320,13 @@
 				TargetAttributes = {
 					F82CDF451EE504C8004DC224 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = QB6M4M2GZL;
+						DevelopmentTeam = F2PTFLGP9W;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -405,7 +419,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		3A1ABA2492410D6945088C08 /* [CP] Check Pods Manifest.lock */ = {
@@ -420,7 +434,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7499BDE9C4717C2BF10C5036 /* [CP] Copy Pods Resources */ = {
@@ -465,7 +479,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		98A5F2132F9D312D89B9B72A /* [CP] Embed Pods Frameworks */ = {
@@ -520,6 +534,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC1A48E61EEBA22400F3A18C /* PickupTableViewController.swift in Sources */,
 				F82CDF8F1EE6C64A004DC224 /* RegisterViewController.swift in Sources */,
 				F82CDF861EE56879004DC224 /* Food.swift in Sources */,
 				F88AE6BD1EE8018B00DED8B0 /* ProfileViewController.swift in Sources */,
@@ -687,10 +702,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FoodMates/FoodMates.entitlements;
-				DEVELOPMENT_TEAM = QB6M4M2GZL;
+				DEVELOPMENT_TEAM = F2PTFLGP9W;
 				INFOPLIST_FILE = FoodMates/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = pgop6.FoodMates;
+				PRODUCT_BUNDLE_IDENTIFIER = com.FoodMates;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -702,10 +717,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FoodMates/FoodMates.entitlements;
-				DEVELOPMENT_TEAM = QB6M4M2GZL;
+				DEVELOPMENT_TEAM = F2PTFLGP9W;
 				INFOPLIST_FILE = FoodMates/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = pgop6.FoodMates;
+				PRODUCT_BUNDLE_IDENTIFIER = com.FoodMates;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

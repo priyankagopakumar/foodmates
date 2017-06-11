@@ -16,8 +16,8 @@ class AddFoodViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     @IBOutlet weak var foodImageView: UIImageView!
     
-    var ref: FIRDatabaseReference?
-    var storageRef: FIRStorageReference?
+    var ref: DatabaseReference?
+    var storageRef: StorageReference?
     var imageURL: String?
     var chosenImage: UIImage?
     var id: String?
@@ -32,8 +32,8 @@ class AddFoodViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ref = FIRDatabase.database().reference()
-        storageRef = FIRStorage.storage().reference()
+        ref = Database.database().reference()
+        storageRef = Storage.storage().reference()
         
         //Looks for single or multiple taps.
         
@@ -95,7 +95,7 @@ class AddFoodViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             let values = ["foodName": foodName!, "foodDescription": foodDescription!, "imageURL": "Blank", "foodDate": foodDate]
             
             self.id = NSUUID().uuidString
-            self.ref?.child("Foods").child((FIRAuth.auth()?.currentUser?.uid)!).child(id!).setValue(values)
+            self.ref?.child("Foods").child((Auth.auth().currentUser?.uid)!).child(id!).setValue(values)
             saveImageToFirebase()
         }
     }
@@ -164,14 +164,14 @@ class AddFoodViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     func saveImageToFirebase()
     {
         var uploadData = UIImagePNGRepresentation(chosenImage!)
-        storageRef?.child("Foods").child("\(self.id!).png").put(uploadData!, metadata: nil, completion: {(metadata, error) in
+        storageRef?.child("Foods").child("\(self.id!).png").putData(uploadData!, metadata: nil, completion: {(metadata, error) in
             if error != nil {
                 print (error)
                 return
             }
             
             self.imageURL = metadata?.downloadURL()?.absoluteString
-        self.ref?.child("Foods").child((FIRAuth.auth()?.currentUser?.uid)!).child(self.id!).child("imageURL").setValue(self.imageURL)
+        self.ref?.child("Foods").child((Auth.auth().currentUser?.uid)!).child(self.id!).child("imageURL").setValue(self.imageURL)
             self.navigationController?.popViewController(animated: true)
         })
     }

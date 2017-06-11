@@ -8,11 +8,10 @@
 
 import UIKit
 import Firebase
-
 class FoodsTableViewController: UITableViewController {
 
     var foodsList: NSMutableArray?
-    var ref: FIRDatabaseReference?
+    var ref: DatabaseReference?
     var selectedFood: Food?
 
     @IBOutlet weak var noItemsLabel: UILabel!
@@ -25,15 +24,17 @@ class FoodsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ref = FIRDatabase.database().reference()
-        if let currentUser = FIRAuth.auth()?.currentUser {
+        ref = Database.database().reference()
+        if let currentUser = Auth.auth().currentUser {
             print("Logged in user is \(currentUser.displayName)")
             print("Logged in user is \(currentUser.email)")
-            
         }
         
-        
         retrieveDataFromFirebase()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,12 +63,12 @@ class FoodsTableViewController: UITableViewController {
             self.foodsList?.removeAllObjects()
             var userID: String
             userID = "testuser2"
-            for current in snapshot.children.allObjects as! [FIRDataSnapshot]
+            for current in snapshot.children.allObjects as! [DataSnapshot]
             {
                 userID = current.key
                 if (userID != "testuser1")
                 {
-                    for currentFood in current.children.allObjects as! [FIRDataSnapshot]
+                    for currentFood in current.children.allObjects as! [DataSnapshot]
                     {
                         let value = currentFood.value as? NSDictionary
                         let foodName = value?["foodName"] as? String ?? ""

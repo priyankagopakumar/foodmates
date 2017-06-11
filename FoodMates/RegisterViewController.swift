@@ -27,7 +27,7 @@ class RegisterViewController: UIViewController, GIDSignInUIDelegate, UITextField
     
     @IBOutlet weak var appLogoImageView: UIImageView!
     
-    var ref: FIRDatabaseReference?
+    var ref: DatabaseReference?
     var registerInputViewHeightAnchor: NSLayoutConstraint?
     
     lazy var loginContainerView: UIView = {
@@ -54,7 +54,7 @@ class RegisterViewController: UIViewController, GIDSignInUIDelegate, UITextField
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ref = FIRDatabase.database().reference()
+        ref = Database.database().reference()
         textName.delegate = self
         textEmail.delegate = self
         textPassword.delegate = self
@@ -77,17 +77,17 @@ class RegisterViewController: UIViewController, GIDSignInUIDelegate, UITextField
         
         GIDSignIn.sharedInstance().uiDelegate = self
         
-        if FIRAuth.auth()?.currentUser?.uid == nil
+        if Auth.auth().currentUser?.uid == nil
         {
             do{
-                try FIRAuth.auth()?.signOut()
+                try Auth.auth().signOut()
             }
             catch let logoutError {
                 print (logoutError)
             }
         }
         
-        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+        Auth.auth().addStateDidChangeListener { auth, user in
             if let user = user {
                 // User is signed in
                 print("logged in user is: ", user.email)
@@ -271,7 +271,7 @@ class RegisterViewController: UIViewController, GIDSignInUIDelegate, UITextField
         {
             if (chosenOption == "Login")
             {
-                FIRAuth.auth()?.signIn(withEmail: email!, password: password!) { (user, error) in
+                Auth.auth().signIn(withEmail: email!, password: password!) { (user, error) in
                     if error != nil
                     {
                         print (error)
@@ -284,7 +284,7 @@ class RegisterViewController: UIViewController, GIDSignInUIDelegate, UITextField
             }
             else
             {
-                FIRAuth.auth()?.createUser(withEmail: email!, password: password!, completion: {(user, error) in
+                Auth.auth().createUser(withEmail: email!, password: password!, completion: {(user, error) in
                     
                     if error != nil
                     {
@@ -321,10 +321,10 @@ class RegisterViewController: UIViewController, GIDSignInUIDelegate, UITextField
                 return
             }
             
-            let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
+            let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
             
             // Perform login by calling Firebase APIs
-            FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
+            Auth.auth().signIn(with: credential, completion: { (user, error) in
                 if let error = error {
                     print("Login error: \(error.localizedDescription)")
                     let alertController = UIAlertController(title: "Login Error", message: error.localizedDescription, preferredStyle: .alert)
@@ -336,7 +336,7 @@ class RegisterViewController: UIViewController, GIDSignInUIDelegate, UITextField
                 }
                 
                 var hasEntry: Bool = false
-                var ref2: FIRDatabaseReference = FIRDatabase.database().reference()
+                var ref2: DatabaseReference = Database.database().reference()
                 ref2.child("Profile").child((user?.uid)!).observe(.value, with: {(snapshot) in
                     // let's try this
                     if (snapshot.hasChildren())
