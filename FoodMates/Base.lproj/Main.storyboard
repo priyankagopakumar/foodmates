@@ -398,6 +398,13 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBk-gz-sJO">
+                                <rect key="frame" x="16" y="438" width="68" height="30"/>
+                                <state key="normal" title="Test Push"/>
+                                <connections>
+                                    <action selector="testPush:" destination="DrZ-Ia-VLj" eventType="touchUpInside" id="zWM-PA-RJF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -410,6 +417,8 @@
                             <constraint firstItem="iCC-JX-UbB" firstAttribute="trailing" secondItem="jpW-Do-h8s" secondAttribute="trailing" id="G94-gD-iDl"/>
                             <constraint firstItem="Sxv-Xl-3Y4" firstAttribute="top" secondItem="jpW-Do-h8s" secondAttribute="bottom" constant="8" symbolic="YES" id="JiY-AG-bPr"/>
                             <constraint firstItem="2OA-2Y-HXL" firstAttribute="leading" secondItem="uow-5d-1Og" secondAttribute="trailing" constant="14" id="Jsw-9j-aqw"/>
+                            <constraint firstItem="iBk-gz-sJO" firstAttribute="leading" secondItem="bHC-RC-E3M" secondAttribute="leading" id="KBq-R3-x8N"/>
+                            <constraint firstItem="jpW-Do-h8s" firstAttribute="top" secondItem="iBk-gz-sJO" secondAttribute="bottom" constant="8" symbolic="YES" id="KlE-rt-9u2"/>
                             <constraint firstItem="Ylt-cs-9I5" firstAttribute="leading" secondItem="B8q-sW-KUd" secondAttribute="leadingMargin" constant="78" id="ODK-SW-eLr"/>
                             <constraint firstItem="Z6Z-WU-acr" firstAttribute="leading" secondItem="jpW-Do-h8s" secondAttribute="leading" id="ORF-A5-Hka"/>
                             <constraint firstItem="Ylt-cs-9I5" firstAttribute="top" secondItem="T2v-Xs-IXd" secondAttribute="bottom" constant="33" id="T7i-4S-c86"/>
@@ -718,23 +727,11 @@
                                 <action selector="showMenu:" destination="dgW-JT-MEb" id="3ph-CK-5WH"/>
                             </connections>
                         </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="739-77-Nke">
-                                <connections>
-                                    <segue destination="GV2-8Z-TkE" kind="show" id="fB1-t3-pkK"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem style="plain" id="KbE-zo-WK3">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bBe-Vs-SbZ">
-                                    <rect key="frame" x="239.5" y="7" width="83" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Push"/>
-                                </button>
-                                <connections>
-                                    <action selector="testPush:" destination="dgW-JT-MEb" id="Yj1-55-2jz"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="739-77-Nke">
+                            <connections>
+                                <segue destination="GV2-8Z-TkE" kind="show" id="fB1-t3-pkK"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="leadingConstraint" destination="FYf-tg-PgV" id="2A5-Uj-yCD"/>
@@ -746,7 +743,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ewK-CL-qtD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4359" y="-1294"/>
+            <point key="canvasLocation" x="4357.6000000000004" y="-1294.0029985007498"/>
         </scene>
         <!--Food-->
         <scene sceneID="9qu-Tf-BGh">

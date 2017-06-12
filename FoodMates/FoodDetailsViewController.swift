@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Alamofire
 
 class FoodDetailsViewController: UIViewController {
 
@@ -23,6 +24,21 @@ class FoodDetailsViewController: UIViewController {
     var userName: String?
     var userContact: String?
     var userImageURL: String?
+    var fcm: String?
+    
+    @IBAction func testPush(_ sender: Any) {
+        print("push")
+        
+        // Just to test, send push to self
+        let url = "https://fcm.googleapis.com/fcm/send"
+        let headers = ["Content-Type": "application/json",
+                       "Authorization": "key=AAAAlpmHQdI:APA91bHSYKnQto0IWtkz49Ln20_MrfpvD6_fL6zSzRQlr_tpbcxjbq4IX1JMdXs0A0W6MjrwB0lDgwMJMhom-F_nycgxGZorPD2mY24r8uaHwuTPDV6Ts7urZqVmheJ5P3Jd5KGDBIN4"]
+        let content = ["notification": ["title": "test push", "body": "hello to you", "sound": "default"], "to": self.fcm ?? ""] as [String : Any]
+        
+        Alamofire.request(url, method: .post, parameters: content, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
+            print(response)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +70,9 @@ class FoodDetailsViewController: UIViewController {
                 DispatchQueue.main.async(){
                     self.assignLabels()
                 }
+            }
+            if let fcm = snapshot.childSnapshot(forPath: "fcmToken").value as? String {
+                self.fcm = fcm
             }
         })
     }
