@@ -11,7 +11,7 @@
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.646820872658-7dsntbiar04at6p9bdhrtkecu2nupbq7</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDxoE2nVtiTq8WT7w9TkZWopbyyUddnMx4</string>
+	<string></string>
 	<key>GCM_SENDER_ID</key>
 	<string>646820872658</string>
 	<key>PLIST_VERSION</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:646820872658:ios:711789556fa02716</string>
+	<string></string>
 	<key>DATABASE_URL</key>
 	<string>https://ideator-377af.firebaseio.com</string>
 </dict>
